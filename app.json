@@ -1,0 +1,15 @@
+{
+  "name": "XVMS",
+  "description": "XVMS.",
+  "keywords": [
+    "vmess"
+  ],
+  "env": {
+    "UUID": {
+      "description": "VMESS UUID",
+      "value": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+    }
+  },
+  "repository": "",
+  "stack": "container"
+}
