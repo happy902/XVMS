@@ -18,7 +18,7 @@ cat << EOF > /usr/local/etc/xray/config.json
   },
   "inbounds": [
     {
-      "port": 443,
+      "port": $PORT,
       "protocol": "VMESS",
       "settings": {
         "clients": [
