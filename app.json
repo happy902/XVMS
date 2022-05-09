@@ -8,10 +8,6 @@
     "UUID": {
       "description": "VMESS UUID",
       "value": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-    },
-    "WP":{
-      "description": "ws path",
-      "value": "xxxxxxxx"
     }
   },
   "repository": "",
