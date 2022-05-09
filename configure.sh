@@ -30,7 +30,13 @@ cat << EOF > /usr/local/etc/xray/config.json
         "decryption": "auto"
       },
       "streamSettings": {
-        "network": "tcp"
+        "network": "tcp",
+        "tcpSettings": {
+          "acceptProxyProtocol": false,
+          "header": {
+          "type": "none"
+             }
+         }
       }
     }
   ],
