@@ -30,10 +30,7 @@ cat << EOF > /usr/local/etc/xray/config.json
         "decryption": "auto"
       },
       "streamSettings": {
-        "network": "ws",
-        "wsSettings": {
-          "path": "/$WP"
-        }
+        "network": "tcp"
       }
     }
   ],
