@@ -2,7 +2,7 @@
   "name": "XVMS",
   "description": "XVMS",
   "keywords": [
-    "v2ray VMess VLESS"
+    "VMess VLESS"
   ],
   "env": {
     "PROTOCOL": {
