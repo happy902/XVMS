@@ -10,15 +10,15 @@
 
 请求`/`，返回3D元素周期表
 
-![image](https://github.com/Tonkercke/XVMS/doc/1.png)
+![image](https://github.com/Tonkercke/XVMS/blob/master/doc/1.png)
 
 请求`/speedtest/`，html5-speedtest测速页面
 
-![image](https://github.com/Tonkercke/XVMS/doc/2.png)
+![image](https://github.com/Tonkercke/XVMS/blob/master/doc/2.png)
 
 请求`/test/`，文件下载速度测试
 
-![image](https://github.com/Tonkercke/XVMS/doc/3.png)
+![image](https://github.com/Tonkercke/XVMS/blob/master/doc/3.png)
 
 请求`/ray`（可配置）v2ray websocket路径
 
