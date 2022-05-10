@@ -1,64 +1,60 @@
-# Xray Vmess
+## v2ray-heroku
+[![](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/Tonkercke/XVMS.git)
 
-## 概述
+### heroku上部署v2ray
+- [x] 支持VMess和VLESS两种协议
+- [x] 支持自定义websocket路径
+- [x] 伪装首页（3D元素周期表）
+- [x] HTML5测速
+- [x] 使用v2ray最新版构建
 
-用于在 Heroku 上部署 vmess+websocket+tls，每次部署自动选择最新的 alpine linux 和 xray core。  
+请求`/`，返回3D元素周期表
 
-## 镜像
+![image](https://github.com/Tonkercke/XVMS/doc/1.png)
 
-提醒：滥用可能导致账户被删除！！！
+请求`/speedtest/`，html5-speedtest测速页面
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://dashboard.heroku.com/new?template=https://github.com/Tonkercke/XVMS)
+![image](https://github.com/Tonkercke/XVMS/doc/2.png)
 
-## 注意
+请求`/test/`，文件下载速度测试
 
-### 路径
+![image](https://github.com/Tonkercke/XVMS/doc/3.png)
 
-WebSocket 路径改为自定义，这个路径名称相当于WS的密码，所以要尽可能的长，最大長度是30位，超出后會創建失敗而且不會提示錯誤。
-注意：路径名称只能是数字大小字母和一部分符号组成，符号不可以包含 “ / \ : *?"<>| ”。 
+请求`/ray`（可配置）v2ray websocket路径
 
-### 端口
 
-`端口` 为 `443` 。
+### 环境变量说明
 
-### 加密
+|  名称 | 值  | 说明  |
+| ------------ | ------------ | ------------ |
+|  PROTOCOL |  vmess<br>vless（可选） |  协议：nginx+vmess+ws+tls或是nginx+vless+ws+tls |
+|  UUID |  [uuid在线生成器](https://www.uuidgenerator.net "uuid在线生成器") | 用户主ID  |
+|  WS_PATH | 默认为`/ray` |  路径，请勿使用`/speedtest`，`/`，`/test` 等已经被占用的请求路径 |
 
-`加密` 为 `auto` 。
+### CloudFlare Workers反代代码（可分别用两个账号的应用程序名（`PROTOCOL`、`UUID`、`WS_PATH`保持一致），单双号天分别执行，那一个月就有550+550小时）
+<details>
+<summary>CloudFlare Workers单账户反代代码</summary>
 
-### alterId
-
-`alterId` 为 `0` 。
-
-### UUID
-
-`UUID` 默认为 `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx` UUID需要自行更改。
-
-'UUID' 可在 https://www.uuidgenerator.net/ 中獲取。
-
-## 流量中转
-
-可以使用cloudflare的workers来`中转流量`，配置为：  
-
-1.适用单一应用的反代代码
-
-```
+```js
 addEventListener(
-  "fetch", event => {
-    let url = new URL(event.request.url);
-    url.host = "appname.herokuapp.com";
-    let request = new Request(url, event.request);
-    event.respondWith(
-      fetch(request)
-    )
-  }
+    "fetch",event => {
+        let url=new URL(event.request.url);
+        url.hostname="appname.herokuapp.com";
+        let request=new Request(url,event.request);
+        event. respondWith(
+            fetch(request)
+        )
+    }
 )
 ```
+</details>
 
-2.适用单双日循环执行的反代代码
+<details>
+<summary>CloudFlare Workers单双日轮换反代代码</summary>
 
-```
-const SingleDay = '应用程序名1.herokuapp.com'
-const DoubleDay = '应用程序名2.herokuapp.com'
+```js
+const SingleDay = 'app0.herokuapp.com'
+const DoubleDay = 'app1.herokuapp.com'
 addEventListener(
     "fetch",event => {
     
@@ -78,10 +74,12 @@ addEventListener(
     }
 )
 ```
+</details>
 
-3.适用多实例循环执行的反代代码
+<details>
+<summary>CloudFlare Workers每五天轮换一遍式反代代码</summary>
 
-```
+```js
 const Day0 = 'app0.herokuapp.com'
 const Day1 = 'app1.herokuapp.com'
 const Day2 = 'app2.herokuapp.com'
@@ -114,4 +112,68 @@ addEventListener(
         )
     }
 )
+```
+</details>
+
+<details>
+<summary>CloudFlare Workers一周轮换反代代码</summary>
+
+```js
+const Day0 = 'app0.herokuapp.com'
+const Day1 = 'app1.herokuapp.com'
+const Day2 = 'app2.herokuapp.com'
+const Day3 = 'app3.herokuapp.com'
+const Day4 = 'app4.herokuapp.com'
+const Day5 = 'app5.herokuapp.com'
+const Day6 = 'app6.herokuapp.com'
+addEventListener(
+    "fetch",event => {
+    
+        let nd = new Date();
+        let day = nd.getDay();
+        if (day === 0) {
+            host = Day0
+        } else if (day === 1) {
+            host = Day1
+        } else if (day === 2) {
+            host = Day2
+        } else if (day === 3){
+            host = Day3
+        } else if (day === 4) {
+            host = Day4
+        } else if (day === 5) {
+            host = Day5
+        } else if (day === 6) {
+            host = Day6
+        } else {
+            host = Day1
+        }
+        
+        let url=new URL(event.request.url);
+        url.hostname=host;
+        let request=new Request(url,event.request);
+        event. respondWith(
+            fetch(request)
+        )
+    }
+)
+```
+</details>
+
+### 客户端配置
+
+```
+  - name: "yourName"
+    type: vmess
+    server: yourName.workers.dev
+    port: 443
+    uuid: yourUuid
+    alterId: 0
+    cipher: auto
+    udp: true
+    tls: true
+    #skip-cert-verify: true
+    servername: yourName.workers.dev
+    network: ws
+    ws-path: /ray
 ```

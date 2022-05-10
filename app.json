@@ -1,15 +1,30 @@
 {
   "name": "XVMS",
-  "description": "XVMS.",
+  "description": "XVMS",
   "keywords": [
-    "vmess"
+    "v2ray VMess VLESS"
   ],
   "env": {
+    "PROTOCOL": {
+      "description": "协议VMess或VLESS，请填小写的vmess或vless",
+      "value": "vmess",
+      "required": true
+    },
     "UUID": {
-      "description": "VMESS UUID",
-      "value": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+      "description": "用户的主ID",
+      "value": "",
+      "required": false
+    },
+    "WS_PATH": {
+      "description": "websocket路径",
+      "value": "/ray",
+      "required": true
     }
   },
-  "repository": "",
-  "stack": "container"
+  "website": "https://github.com/Tonkercke/XVMS",
+  "repository": "https://github.com/Tonkercke/XVMS",
+  "stack": "container",
+  "features": [
+    "runtime-dyno-metadata"
+  ]
 }
