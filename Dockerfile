@@ -1,5 +1,5 @@
-FROM nginx:1.19.3-alpine
-ENV TZ=Asia/Shanghai
+FROM nginx:1.21.6-alpine
+ENV TZ=Asia/Taipei
 RUN apk add --no-cache --virtual .build-deps ca-certificates bash curl unzip php7
 COPY nginx/default.conf.template /etc/nginx/conf.d/default.conf.template
 COPY nginx/nginx.conf /etc/nginx/nginx.conf

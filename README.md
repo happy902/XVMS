@@ -6,7 +6,7 @@
 - [x] 支持自定义websocket路径
 - [x] 伪装首页（3D元素周期表）
 - [x] HTML5测速
-- [x] 使用v2ray最新版构建
+- [x] 使用xray最新版构建
 
 请求`/`，返回3D元素周期表
 
@@ -20,7 +20,7 @@
 
 ![image](https://github.com/Tonkercke/XVMS/blob/master/doc/3.png)
 
-请求`/ray`（可配置）v2ray websocket路径
+请求`/ray`（可配置）xray websocket路径
 
 
 ### 环境变量说明
