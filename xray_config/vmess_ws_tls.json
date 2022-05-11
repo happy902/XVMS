@@ -10,7 +10,7 @@
             "alterId": 0
           }
         ],
-        "decryption": "auto"
+        "decryption": "chacha20-poly1305"
       },
       "streamSettings": {
         "network": "ws",
