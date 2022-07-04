@@ -1,5 +1,5 @@
 ## XVMS
-[![](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/Tonkercke/XVMS.git)
+[![](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/happy902/XVMS.git)
 
 ### heroku上部署Xray
 - [x] 支持VMess和VLESS两种协议
