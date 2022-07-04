@@ -21,8 +21,8 @@
       "required": true
     }
   },
-  "website": "https://github.com/Tonkercke/XVMS",
-  "repository": "https://github.com/Tonkercke/XVMS",
+  "website": "https://github.com/happy902/XVMS",
+  "repository": "https://github.com/happy902/XVMS",
   "stack": "container",
   "features": [
     "runtime-dyno-metadata"
